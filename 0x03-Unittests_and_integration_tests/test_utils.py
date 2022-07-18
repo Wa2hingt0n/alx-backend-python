@@ -1,7 +1,7 @@
 #!/usr/bin/env python3
 """ Defines a test class 'TestAccessNestaedMap' """
 import unittest
-from typing import Dict, Tuple, Any
+from typing import Dict, Tuple, Any, Union
 from parameterized import parameterized
 from utils import access_nested_map
 
@@ -15,8 +15,8 @@ class TestAccessNestedMap(unittest.TestCase):
     ])
     def test_access_nested_map(
             self,
-            name: str, nested_map: Dict[Any],
-            path: Tuple[str, ...],
-            expected: Any):
+            name: str, nested_map: Dict,
+            path: Tuple[str],
+            expected: Union[int, Dict]):
         """ Tests the 'utils.access_nested_map method' """
         self.assertEqual(access_nested_map(nested_map, path), expected)
