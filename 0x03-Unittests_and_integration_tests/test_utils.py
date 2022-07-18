@@ -1,9 +1,10 @@
 #!/usr/bin/env python3
 """ Defines a test class 'TestAccessNestaedMap' """
 import unittest
-from typing import Dict, Tuple, Any, Union
 from parameterized import parameterized
-from utils import access_nested_map
+from typing import Dict, Tuple, Any, Union
+from unittest.mock import Mock, patch
+from utils import access_nested_map, get_json
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -33,3 +34,17 @@ class TestAccessNestedMap(unittest.TestCase):
         """ Tests whether a key error is raised """
         with self.assertRaises(KeyError):
             access_nested_map(nested_map, path)
+
+class TestGetJSON(unittest.TestCase):
+    """ Creates a test suite for the utils.get_json method """
+    @parameterized.expand([
+        ("http://example.com", {"payload": True}),
+        ("http://holberton.io", {"payload": False})
+    ])
+    def test_get_json(self, test_url: str, test_payload: Dict) -> None:
+        """ Test case for the utils.get_json method. Creates a mock object
+        for 'requests.get' and returns a test payload """
+        kwargs = {"json.return_value": test_payload}
+        with patch("requests.get", return_value=Mock(**kwargs)) as mock_req:
+            self.assertEqual(get_json(test_url), test_payload)
+            mock_req.assert_called_once_with(test_url)
