@@ -36,7 +36,7 @@ class TestAccessNestedMap(unittest.TestCase):
             access_nested_map(nested_map, path)
 
 
-class TestGetJSON(unittest.TestCase):
+class TestGetJson(unittest.TestCase):
     """ Creates a test suite for the utils.get_json method """
     @parameterized.expand([
         ("http://example.com", {"payload": True}),
