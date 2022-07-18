@@ -17,6 +17,6 @@ class TestAccessNestedMap(unittest.TestCase):
             self,
             name: str, nested_map: Dict,
             path: Tuple[str],
-            expected: Union[int, Dict]):
+            expected: Union[int, Dict]) -> None:
         """ Tests the 'utils.access_nested_map method' """
         self.assertEqual(access_nested_map(nested_map, path), expected)
